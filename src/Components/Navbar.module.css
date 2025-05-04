@@ -1,0 +1,39 @@
+/* src/components/Navbar.module.css */
+.navbar {
+  background-color: #333;
+  padding: 10px;
+  color: white;
+}
+
+.navList {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navList li {
+  margin-right: 20px;
+}
+
+.navLink {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navLink:hover {
+  color: #ff6347;
+}
+
+.signOutButton {
+  background-color: #ff6347;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.signOutButton:hover {
+  background-color: #ff4500;
+}

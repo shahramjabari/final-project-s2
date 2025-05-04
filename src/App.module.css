@@ -1,0 +1,26 @@
+/* src/App.module.css */
+.rootContainer {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #333;
+  padding: 10px;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  color: #333;
+}
+
+p {
+  color: #555;
+}
