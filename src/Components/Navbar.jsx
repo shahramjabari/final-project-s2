@@ -17,7 +17,6 @@ const Navbar = () => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      console.log("Bruker logget ut");
       navigate("/sign-in");
     } catch (error) {
       console.error("Feil ved utlogging:", error.message);
@@ -25,45 +24,56 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={styles.navbar}>
-      <ul className={styles.navList}>
-        <li>
-          <NavLink to="/" className={styles.navLink}>
-            Hjem
-          </NavLink>
-        </li>
+    <header className={styles.navbarWrapper}>
+      <nav className={styles.navbar}>
+        <div className={styles.logo}>FitnessApp 🏋️</div>
 
-        {!isLoggedIn && (
-          <>
+        <ul className={styles.navList}>
+          {!isLoggedIn && (
             <li>
-              <NavLink to="/sign-up" className={styles.navLink}>
-                Sign Up
+              <NavLink to="/" className={styles.navLink}>
+                Hjem
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/sign-in" className={styles.navLink}>
-                Sign In
-              </NavLink>
-            </li>
-          </>
-        )}
+          )}
+
+          {isLoggedIn && (
+            <>
+              <li>
+                <NavLink to="/homepage" className={styles.navLink}>
+                  Homepage
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/add-workout" className={styles.navLink}>
+                  Øvelser
+                </NavLink>
+              </li>
+            </>
+          )}
+          {!isLoggedIn && (
+            <>
+              <li>
+                <NavLink to="/sign-up" className={styles.navLink}>
+                  Sign Up
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/sign-in" className={styles.navLink}>
+                  Sign In
+                </NavLink>
+              </li>
+            </>
+          )}
+        </ul>
 
         {isLoggedIn && (
-          <>
-            <li>
-              <NavLink to="/dashboard" className={styles.navLink}>
-                Dashboard
-              </NavLink>
-            </li>
-            <li>
-              <button onClick={handleSignOut} className={styles.signOutButton}>
-                Logg ut
-              </button>
-            </li>
-          </>
+          <button onClick={handleSignOut} className={styles.logoutButton}>
+            Logg ut
+          </button>
         )}
-      </ul>
-    </nav>
+      </nav>
+    </header>
   );
 };
 

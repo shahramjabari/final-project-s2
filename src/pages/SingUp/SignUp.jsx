@@ -44,7 +44,7 @@ const SignUp = () => {
         formData.password
       );
       console.log("Bruker opprettet (mock):", userCredential.user);
-      navigate("/dashboard");
+      navigate("/homepage");
     } catch (err) {
       setError("Kunne ikke opprette bruker.");
     }

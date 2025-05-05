@@ -24,7 +24,7 @@ const SignIn = () => {
         formData.password
       );
       console.log("Signed in (mock):", userCredential.user);
-      navigate("/dashboard");
+      navigate("/homepage");
     } catch (err) {
       setError("Feil ved innlogging");
     }

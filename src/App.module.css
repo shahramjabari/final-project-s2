@@ -1,26 +1,29 @@
-/* src/App.module.css */
+/* Appens hovedcontainer */
 .rootContainer {
-  font-family: Arial, sans-serif;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  background: linear-gradient(to bottom right, #eaf6ff, #ffffff);
+  font-family: "Inter", sans-serif;
 }
 
-header {
-  background-color: #333;
-  padding: 10px;
-}
-
+/* Main content – begrens bredde og legg til spacing */
 main {
   flex: 1;
-  padding: 20px;
-  background-color: #f5f5f5;
+  margin: 0 auto;
+  width: 100%;
 }
 
-h1 {
-  color: #333;
+/* Header (Navbar) kan få fast høyde om ønsket, ellers håndteres via Navbar-styling) */
+header {
+  flex-shrink: 0;
 }
 
-p {
-  color: #555;
+/* Footer hvis du legger det til senere */
+footer {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.02);
+  font-size: 0.9rem;
 }

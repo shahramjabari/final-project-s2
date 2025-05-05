@@ -1,39 +1,74 @@
-/* src/components/Navbar.module.css */
+.navbarWrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+  height: 80px; /* Gjør navbaren høyere */
+  display: flex;
+  align-items: center;
+}
+
 .navbar {
-  background-color: #333;
-  padding: 10px;
-  color: white;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #007bff;
 }
 
 .navList {
-  list-style-type: none;
-  padding: 0;
   display: flex;
-  justify-content: center;
-}
-
-.navList li {
-  margin-right: 20px;
+  gap: 2rem;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 .navLink {
-  color: white;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #333;
   text-decoration: none;
-  font-weight: bold;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  transition: all 0.2s ease;
 }
 
-.navLink:hover {
-  color: #ff6347;
+.navLink:hover,
+.navLink.active {
+  background-color: #e6f0ff;
+  color: #007bff;
 }
 
-.signOutButton {
-  background-color: #ff6347;
+.logoutButton {
+  background-color: #007bff;
   color: white;
-  padding: 10px;
+  font-weight: 500;
   border: none;
+  border-radius: 9999px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
 }
 
-.signOutButton:hover {
-  background-color: #ff4500;
+.logoutButton:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.logoutButton:active {
+  transform: scale(0.95);
 }
