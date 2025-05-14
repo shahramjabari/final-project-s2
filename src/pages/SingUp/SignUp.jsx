@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./SignUp.module.css";
-import { createUserWithEmailAndPassword, auth } from "/src/FirebaseConfig.js";
+import Button from "../../components/Button/Button";
+import { useSignUpValidation } from "../../hooks/useSignUpValidation";
 import { useNavigate } from "react-router-dom";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { database } from "../../FirebaseConfig";
+import { useAuth } from "../../Hooks/useAuth";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -10,127 +14,211 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    terms: false,
+    dateOfBirth: "",
+    profilePicture: null,
+    previewUrl: "",
   });
-  const [error, setError] = useState(null);
+
+  const fileInputRef = useRef(null);
+  const { validate, errors } = useSignUpValidation();
+  const { signUp, signUpErrors } = useAuth();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+  const handleInputChange = (e) => {
+    if (e.target.type === "file") return;
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSignUp = async (e) => {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith("image/")) {
+      const previewUrl = URL.createObjectURL(file);
+      setFormData((prev) => ({
+        ...prev,
+        profilePicture: file,
+        previewUrl,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        profilePicture: null,
+        previewUrl: "",
+      }));
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData((prev) => ({
+      ...prev,
+      profilePicture: null,
+      previewUrl: "",
+    }));
+    fileInputRef.current.value = "";
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
-
-    if (!formData.terms) {
-      setError("Du må godta vilkårene.");
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passordene matcher ikke.");
-      return;
-    }
+    if (!validate(formData)) return;
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.password
-      );
-      console.log("Bruker opprettet (mock):", userCredential.user);
-      navigate("/homepage");
-    } catch (err) {
-      setError("Kunne ikke opprette bruker.");
+      const userCredential = await signUp(formData.email, formData.password);
+      const user = userCredential.user;
+
+      await setDoc(doc(database, "users", user.uid), {
+        uid: user.uid,
+        firstname: formData.firstname,
+        lastname: formData.lastname,
+        email: formData.email,
+        dateOfBirth: formData.dateOfBirth || "",
+        profilePicture: "", // TODO: Legg til faktisk URL hvis du laster opp bildet senere
+        createdAt: serverTimestamp(),
+      });
+
+      // Reset form
+      setFormData({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        dateOfBirth: "",
+        profilePicture: null,
+        previewUrl: "",
+      });
+      fileInputRef.current.value = "";
+
+      navigate("/verify-email");
+    } catch (error) {
+      console.error("Signup failed:", error);
     }
   };
 
   return (
-    <div className={styles.signUpContainer}>
-      <form className={styles.signUpForm} onSubmit={handleSignUp}>
-        <h1>Sign Up 🆙</h1>
+    <div className={styles.formWrapper}>
+      <form className={styles.signUpForm} onSubmit={handleSubmit} noValidate>
+        <h2>Sign-up Form</h2>
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="firstname">First Name:</label>
+        <fieldset className={styles.formGroup}>
+          <legend className={styles.formGroupTitle}>
+            Personal Information
+          </legend>
+
+          <label htmlFor="firstname">First name</label>
           <input
             type="text"
-            name="firstname"
             id="firstname"
+            name="firstname"
+            placeholder="Enter your first name"
             value={formData.firstname}
-            onChange={handleChange}
-            required
+            onChange={handleInputChange}
+            className={styles.formInput}
           />
-        </div>
+          {errors.firstname && (
+            <p className={styles.errorMessage}>{errors.firstname}</p>
+          )}
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="lastname">Last Name:</label>
+          <label htmlFor="lastname">Last name</label>
           <input
             type="text"
-            name="lastname"
             id="lastname"
+            name="lastname"
+            placeholder="Enter your last name"
             value={formData.lastname}
-            onChange={handleChange}
-            required
+            onChange={handleInputChange}
+            className={styles.formInput}
           />
-        </div>
+          {errors.lastname && (
+            <p className={styles.errorMessage}>{errors.lastname}</p>
+          )}
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="dateOfBirth">Date of birth</label>
+          <input
+            type="date"
+            id="dateOfBirth"
+            name="dateOfBirth"
+            value={formData.dateOfBirth}
+            onChange={handleInputChange}
+            className={styles.formInput}
+          />
+
+          <label htmlFor="profilePicture">Profile picture</label>
+          <input
+            type="file"
+            id="profilePicture"
+            name="profilePicture"
+            accept=".jpg, .jpeg, .png"
+            onChange={handleImageChange}
+            ref={fileInputRef}
+            className={styles.formInput}
+          />
+          {formData.previewUrl && (
+            <div className={styles.imagePreviewContainer}>
+              <img
+                src={formData.previewUrl}
+                alt="Preview"
+                className={styles.imagePreview}
+              />
+              <button
+                type="button"
+                onClick={handleRemoveImage}
+                className={styles.removeImageButton}
+              >
+                Remove photo
+              </button>
+            </div>
+          )}
+        </fieldset>
+
+        <fieldset className={styles.formGroup}>
+          <legend className={styles.formGroupTitle}>Account Information</legend>
+
+          <label htmlFor="email">Email</label>
           <input
             type="email"
-            name="email"
             id="email"
+            name="email"
+            placeholder="Enter your email"
             value={formData.email}
-            onChange={handleChange}
-            required
+            onChange={handleInputChange}
+            className={styles.formInput}
           />
-        </div>
+          {errors.email && (
+            <p className={styles.errorMessage}>{errors.email}</p>
+          )}
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
-            name="password"
             id="password"
+            name="password"
+            placeholder="Enter your password"
             value={formData.password}
-            onChange={handleChange}
-            required
+            onChange={handleInputChange}
+            className={styles.formInput}
           />
-        </div>
+          {errors.password && (
+            <p className={styles.errorMessage}>{errors.password}</p>
+          )}
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             type="password"
-            name="confirmPassword"
             id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Re-enter your password"
             value={formData.confirmPassword}
-            onChange={handleChange}
-            required
+            onChange={handleInputChange}
+            className={styles.formInput}
           />
-        </div>
+          {errors.confirmPassword && (
+            <p className={styles.errorMessage}>{errors.confirmPassword}</p>
+          )}
+        </fieldset>
 
-        <div className={styles.term}>
-          <input
-            type="checkbox"
-            name="terms"
-            id="terms"
-            checked={formData.terms}
-            onChange={handleChange}
-          />
-          <label htmlFor="terms">I agree to the terms and conditions</label>
-        </div>
+        {signUpErrors && <p className={styles.errorMessage}>{signUpErrors}</p>}
 
-        {error && <p className={styles.error}>{error}</p>}
-
-        <button type="submit" className={styles.submitButton}>
-          Sign Up
-        </button>
+        <Button className={styles.createAccountButton}>Create Account</Button>
       </form>
     </div>
   );

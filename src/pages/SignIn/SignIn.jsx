@@ -1,75 +1,177 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./SignIn.module.css";
-import { NavLink, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, auth } from "/src/FirebaseConfig.js";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import Button from "../../Components/Button/Button";
+import Modal from "../../Components/Modal/Modal";
+import useSignInValidation from "../../Hooks/useSignInValidation";
+import { auth } from "../../FirebaseConfig";
 
 const SignIn = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState(null);
+  const [signInFormData, setSignInFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetMessage, setResetMessage] = useState("");
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const { validateSignIn, signInErrors } = useSignInValidation();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setSignInFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setError(null);
+    if (!validateSignIn(signInFormData)) return;
 
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
-        formData.email,
-        formData.password
+        signInFormData.email,
+        signInFormData.password
       );
-      console.log("Signed in (mock):", userCredential.user);
-      navigate("/homepage");
-    } catch (err) {
-      setError("Feil ved innlogging");
+      console.log("User signed in:", userCredential.user);
+      setSignInFormData({ email: "", password: "" });
+      navigate("/mainpage");
+    } catch (error) {
+      console.error("Sign in error:", error.message);
+      setResetMessage("Feil ved innlogging. Sjekk e-post og passord.");
+    }
+  };
+
+  const handlePasswordReset = async (e) => {
+    e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!resetEmail.trim()) {
+      setResetMessage("E-postadresse er påkrevd for å tilbakestille passordet");
+      return;
+    } else if (!emailRegex.test(resetEmail.trim())) {
+      setResetMessage("Skriv inn en gyldig e-postadresse");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, resetEmail);
+      setResetMessage("E-post for tilbakestilling sendt. Sjekk innboksen din.");
+      setResetEmail("");
+    } catch (error) {
+      console.error("Feil ved tilbakestilling:", error.message);
+      setResetMessage("Noe gikk galt. Prøv igjen senere.");
     }
   };
 
   return (
-    <div className={styles.signInContainer}>
-      <form className={styles.signInForm} onSubmit={handleSignIn}>
-        <h1>Sign In ✍🏽</h1>
+    <div className={styles.formWrapper}>
+      <form className={styles.signInForm} noValidate onSubmit={handleSignIn}>
+        <h2>Logg inn</h2>
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="email">Email:</label>
+        <fieldset className={styles.formGroup}>
+          <label htmlFor="email">E-post</label>
           <input
             type="email"
-            name="email"
             id="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
+            name="email"
+            placeholder="Skriv inn din e-post"
+            className={styles.formInput}
+            value={signInFormData.email}
+            onChange={handleInputChange}
           />
-        </div>
+          {signInErrors?.email && (
+            <p className={styles.errorMessage}>{signInErrors.email}</p>
+          )}
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Passord</label>
           <input
             type="password"
-            name="password"
             id="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
+            name="password"
+            placeholder="Skriv inn ditt passord"
+            className={styles.formInput}
+            value={signInFormData.password}
+            onChange={handleInputChange}
           />
-        </div>
+          {signInErrors?.password && (
+            <p className={styles.errorMessage}>{signInErrors.password}</p>
+          )}
+        </fieldset>
 
-        {error && <p className={styles.error}>{error}</p>}
-
-        <button type="submit" className={styles.submitButton}>
-          Sign In
-        </button>
+        {resetMessage && <p className={styles.errorMessage}>{resetMessage}</p>}
 
         <p>
-          Don’t have an account?{" "}
-          <NavLink to="/sign-up">Create one here</NavLink>
+          Har du ikke en konto?{" "}
+          <Link to="/sign-up" className={styles.link}>
+            Registrer deg her
+          </Link>
         </p>
+
+        <p>
+          Glemt passord?{" "}
+          <Button
+            type="button"
+            className={styles.forgotPasswordButton}
+            onClick={() => setShowForgotPasswordModal(true)}
+          >
+            Klikk her
+          </Button>
+        </p>
+
+        <Button className={styles.signInButton}>Logg inn</Button>
       </form>
+
+      {/* Modal for passordreset */}
+      {showForgotPasswordModal && (
+        <Modal>
+          <form className={styles.resetFormContainer}>
+            <p>
+              Skriv inn e-postadressen din for å motta en lenke for å nullstille
+              passordet ditt.
+            </p>
+
+            <label htmlFor="resetEmail">E-post</label>
+            <input
+              type="email"
+              id="resetEmail"
+              name="resetEmail"
+              className={styles.formInput}
+              placeholder="Din e-postadresse"
+              value={resetEmail}
+              onChange={(e) => setResetEmail(e.target.value)}
+            />
+
+            <div className={styles.resetButtonsContainer}>
+              <Button
+                type="button"
+                className={styles.resetPasswordButton}
+                onClick={handlePasswordReset}
+              >
+                Tilbakestill passord
+              </Button>
+              <Button
+                type="button"
+                className={styles.closeButton}
+                onClick={() => {
+                  setShowForgotPasswordModal(false);
+                  setResetMessage("");
+                  setResetEmail("");
+                }}
+              >
+                Lukk
+              </Button>
+            </div>
+
+            {resetMessage && (
+              <p className={styles.errorMessage}>{resetMessage}</p>
+            )}
+          </form>
+        </Modal>
+      )}
     </div>
   );
 };

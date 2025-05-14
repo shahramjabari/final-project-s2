@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddWorkout.module.css";
+import ExerciseCard from "../../Components/ExerciseCard/ExerciseCard";
 
 const muscleGroups = [
   "abductors",
@@ -43,7 +44,6 @@ const AddWorkout = () => {
       }
 
       const data = await response.json();
-
       if (!Array.isArray(data)) {
         throw new Error("Invalid response format");
       }
@@ -51,7 +51,7 @@ const AddWorkout = () => {
       setExercises(data.slice(0, 10));
     } catch (err) {
       console.error("API error:", err.message);
-      setError("Could not fetch exercises. Check muscle selection or API key.");
+      setError("Kunne ikke hente øvelser. Sjekk API-nøkkel eller valg.");
       setExercises([]);
     } finally {
       setLoading(false);
@@ -65,11 +65,11 @@ const AddWorkout = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>
-        💪 Exercises for {muscle.replace("_", " ")}
+        💪 Øvelser for {muscle.replace("_", " ")}
       </h1>
 
       <div className={styles.controls}>
-        <label htmlFor="muscle-select">Select muscle group:</label>
+        <label htmlFor="muscle-select">Velg muskelgruppe:</label>
         <select
           id="muscle-select"
           value={muscle}
@@ -84,29 +84,18 @@ const AddWorkout = () => {
         </select>
       </div>
 
-      {loading && <p className={styles.loading}>Loading exercises...</p>}
+      {loading && <p className={styles.loading}>Laster øvelser...</p>}
       {error && <p className={styles.error}>{error}</p>}
 
-      <ul className={styles.exerciseList}>
+      {!loading && !error && exercises.length === 0 && (
+        <p className={styles.noResults}>Ingen øvelser funnet.</p>
+      )}
+
+      <div className={styles.exerciseGrid}>
         {exercises.map((exercise, index) => (
-          <li key={index} className={styles.exerciseItem}>
-            <h3>{exercise.name}</h3>
-            {exercise.gifUrl && (
-              <img
-                src={exercise.gifUrl}
-                alt={exercise.name}
-                className={styles.exerciseGif}
-              />
-            )}
-            <p>
-              <strong>Muscle:</strong> {exercise.target}
-            </p>
-            <p>
-              <strong>Equipment:</strong> {exercise.equipment}
-            </p>
-          </li>
+          <ExerciseCard key={index} exercise={exercise} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -10,10 +10,12 @@ import App from "../App";
 
 // Importer dine sider
 import Home from "../pages/Home/Home";
-import SignUp from "../pages/SingUp/SignUp";
 import SignIn from "../pages/SignIn/SignIn";
 import AddWorkout from "../pages/AddWorkout/AddWorkout";
-import HomePage from "../pages/HomePage/HomePage";
+import SetGoals from "../pages/SetGoals/SetGoals";
+import WorkoutOverview from "../pages/WorkoutOverview/WorkoutOverview";
+import SignUp from "../pages/SingUp/SignUp";
+import MainPage from "../pages/MainPage/MainPage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,8 +24,10 @@ export const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="sign-up" element={<SignUp />} />
       <Route path="sign-in" element={<SignIn />} />
-      <Route path="homepage" element={<HomePage />} />
+      <Route path="mainpage" element={<MainPage />} />
       <Route path="add-workout" element={<AddWorkout />} />
+      <Route path="set-goals" element={<SetGoals />} />
+      <Route path="workout-overview" element={<WorkoutOverview />} />
     </Route>
   )
 );

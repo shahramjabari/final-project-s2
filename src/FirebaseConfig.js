@@ -1,42 +1,22 @@
-// firebaseConfig.js - forbedret mock med støtte for eventoppdatering
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-export const auth = {
-  currentUser: null,
-  _listeners: [], // 🔁 Legg til lyttere for onAuthStateChanged
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
-// 🔁 Notify all onAuthStateChanged listeners
-const notifyAuthChange = () => {
-  auth._listeners.forEach((callback) => callback(auth.currentUser));
-};
+const app = initializeApp(firebaseConfig);
+export const database = getFirestore(app);
+export const auth = getAuth(app);
 
-// Simulerer innlogging
-export const signInWithEmailAndPassword = async (auth, email, password) => {
-  auth.currentUser = { email };
-  notifyAuthChange(); // 🔥 Oppdater listenerne
-  return { user: auth.currentUser };
-};
-
-// Simulerer oppretting av bruker
-export const createUserWithEmailAndPassword = async (auth, email, password) => {
-  auth.currentUser = { email };
-  notifyAuthChange(); // 🔥
-  return { user: auth.currentUser };
-};
-
-// Simulerer utlogging
-export const signOut = async (auth) => {
-  auth.currentUser = null;
-  notifyAuthChange(); // 🔥
-};
-
-// Simulerer overvåkning av innloggingsstatus
-export const onAuthStateChanged = (auth, callback) => {
-  auth._listeners.push(callback);
-  callback(auth.currentUser); // Kjør callback umiddelbart
-
-  // Returner unsubscribe-funksjon
-  return () => {
-    auth._listeners = auth._listeners.filter((cb) => cb !== callback);
-  };
-};
+export default app;

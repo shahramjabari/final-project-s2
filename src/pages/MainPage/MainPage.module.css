@@ -1,0 +1,123 @@
+.mainContainer {
+  max-width: 960px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(to bottom right, #fdfdfd, #f3fef4);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: #2e7d32;
+}
+
+.name {
+  color: #388e3c;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.userInfo {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  margin-bottom: 2rem;
+  color: #444;
+  text-align: left;
+}
+
+.userInfo p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.section {
+  margin-top: 2rem;
+  background-color: #f0fdf4;
+  border-left: 4px solid #4caf50;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: left;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+}
+
+.section h2 {
+  color: #388e3c;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.goalList {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0;
+}
+
+.goalList li {
+  background-color: #e8f5e9;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  color: #2e7d32;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.actionButton {
+  margin-top: 1.25rem;
+  font-weight: 600;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .mainContainer {
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .section h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContainer {
+    padding: 1.5rem;
+  }
+
+  .goalList li {
+    font-size: 0.95rem;
+  }
+
+  .userInfo p {
+    font-size: 0.95rem;
+  }
+}
