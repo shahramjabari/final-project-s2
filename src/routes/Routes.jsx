@@ -1,12 +1,14 @@
+// src/routes/router.jsx
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
+  Navigate,
 } from "react-router-dom";
 
 import App from "../App";
 
-// Import your pages
+// Pages
 import Home from "../pages/Home/Home";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SingUp/SignUp";
@@ -16,6 +18,17 @@ import SetGoals from "../pages/SetGoals/SetGoals";
 import WorkoutOverview from "../pages/WorkoutOverview/WorkoutOverview";
 import AddProgress from "../pages/AddProgress/AddProgress";
 
+import { useAuthContext } from "../context/authContext";
+
+const RouteGuard = ({ children }) => {
+  const { user, loading } = useAuthContext();
+
+  if (loading) return <p>Loading...</p>;
+  if (!user) return <Navigate to="/sign-in" replace />;
+
+  return children;
+};
+
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -23,10 +36,40 @@ export const router = createBrowserRouter(
       <Route path="sign-up" element={<SignUp />} />
       <Route path="sign-in" element={<SignIn />} />
       <Route path="mainpage" element={<MainPage />} />
-      <Route path="add-workout" element={<AddWorkout />} />
-      <Route path="set-goals" element={<SetGoals />} />
-      <Route path="workout-overview" element={<WorkoutOverview />} />
-      <Route path="add-progress" element={<AddProgress />} />
+
+      {/* Protected Routes */}
+      <Route
+        path="add-workout"
+        element={
+          <RouteGuard>
+            <AddWorkout />
+          </RouteGuard>
+        }
+      />
+      <Route
+        path="set-goals"
+        element={
+          <RouteGuard>
+            <SetGoals />
+          </RouteGuard>
+        }
+      />
+      <Route
+        path="workout-overview"
+        element={
+          <RouteGuard>
+            <WorkoutOverview />
+          </RouteGuard>
+        }
+      />
+      <Route
+        path="add-progress"
+        element={
+          <RouteGuard>
+            <AddProgress />
+          </RouteGuard>
+        }
+      />
     </Route>
   )
 );
