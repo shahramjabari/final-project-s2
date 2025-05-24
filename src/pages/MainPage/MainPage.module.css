@@ -88,6 +88,33 @@ h1 {
   margin-top: 1.25rem;
   font-weight: 600;
 }
+.dashboardCards {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1 1 200px;
+  background-color: #ffffff;
+  border: 2px solid #e0f2f1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.card h3 {
+  font-size: 2rem;
+  color: #4caf50;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #555;
+}
 
 /* Responsive layout */
 @media (max-width: 768px) {

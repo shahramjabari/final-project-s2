@@ -30,20 +30,31 @@ const ExerciseCard = ({ exercise }) => {
     if (!user) return;
 
     const userRef = doc(database, "users", user.uid);
-    if (isFavorite) {
-      await updateDoc(userRef, {
-        favorites: arrayRemove({ id: exercise.id }),
-      });
-    } else {
-      await updateDoc(userRef, {
-        favorites: arrayUnion({
-          id: exercise.id,
-          name: exercise.name,
-          gifUrl: exercise.gifUrl,
-        }),
-      });
+    const userSnap = await getDoc(userRef);
+    const favs = userSnap.data()?.favorites || [];
+
+    const favObj = favs.find((fav) => fav.id === exercise.id) || {
+      id: exercise.id,
+      name: exercise.name,
+      gifUrl: exercise.gifUrl,
+      target: exercise.target,
+      equipment: exercise.equipment,
+    };
+
+    try {
+      if (isFavorite) {
+        await updateDoc(userRef, {
+          favorites: arrayRemove(favObj),
+        });
+      } else {
+        await updateDoc(userRef, {
+          favorites: arrayUnion(favObj),
+        });
+      }
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      console.error("Error updating favorites:", error);
     }
-    setIsFavorite(!isFavorite);
   };
 
   return (
@@ -54,7 +65,13 @@ const ExerciseCard = ({ exercise }) => {
           {isFavorite ? "⭐" : "☆"}
         </button>
       </div>
-      {exercise.gifUrl && <img src={exercise.gifUrl} alt={exercise.name} />}
+      {exercise.gifUrl && (
+        <img
+          src={exercise.gifUrl}
+          alt={exercise.name}
+          className={styles.exerciseGif}
+        />
+      )}
       <p>
         <strong>Muscle:</strong> {exercise.target}
       </p>

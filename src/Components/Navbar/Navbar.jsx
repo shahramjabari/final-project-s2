@@ -87,6 +87,17 @@ const Navbar = () => {
                   Oversikt
                 </NavLink>
               </li>
+
+              <NavLink
+                to="/add-progress"
+                className={({ isActive }) =>
+                  `${styles.navLink} ${styles.logWorkoutLink} ${
+                    isActive ? styles.active : ""
+                  }`
+                }
+              >
+                Log Workout
+              </NavLink>
             </>
           ) : (
             <>

@@ -1,11 +1,11 @@
 import { useState, useRef } from "react";
 import styles from "./SignUp.module.css";
-import Button from "../components/Button/Button";
 import { useSignUpValidation } from "../../hooks/useSignUpValidation";
 import { useNavigate } from "react-router-dom";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { database } from "../../FirebaseConfig";
 import { useAuth } from "../../Hooks/useAuth";
+import Button from "../../Components/Button/Button";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
