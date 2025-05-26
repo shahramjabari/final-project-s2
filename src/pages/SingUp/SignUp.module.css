@@ -2,96 +2,96 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: var(--spacing-xlarge);
   min-height: 100vh;
-  background-color: #f9f9f9;
+  background-color: var(--color-light-gray-background);
 }
 
 .signUpForm {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-white);
+  padding: var(--spacing-xlarge);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-medium);
   width: 100%;
   max-width: 600px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-large);
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--spacing-medium);
   border: none;
   padding: 0;
   margin: 0;
 }
 
 .formGroupTitle {
-  font-size: 1.25rem;
+  font-size: var(--font-size-large);
   font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #333;
+  margin-bottom: var(--spacing-small);
+  color: var(--color-body-text);
 }
 
 .formInput {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: var(--spacing-small);
+  border: 1px solid var(--color-medium-gray-border);
+  border-radius: var(--border-radius-medium);
+  font-size: var(--font-size-medium);
   width: 100%;
 }
 
 .errorMessage {
-  color: #d32f2f;
-  font-size: 0.875rem;
-  margin-top: -0.5rem;
+  color: var(--color-error-text);
+  font-size: var(--font-size-small);
+  margin-top: calc(-1 * var(--spacing-small));
 }
 
 .imagePreviewContainer {
-  margin-top: 0.5rem;
+  margin-top: var(--spacing-extra-small);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: var(--spacing-extra-small);
 }
 
 .imagePreview {
   max-width: 120px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-medium);
 }
 
 .removeImageButton {
-  background-color: #f44336;
-  color: white;
+  background-color: var(--color-delete-background);
+  color: var(--color-white);
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  padding: var(--spacing-extra-small) var(--spacing-medium);
+  border-radius: var(--border-radius-medium);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--font-size-small);
 }
 
 .createAccountButton {
-  padding: 0.75rem;
-  background-color: #4caf50;
-  color: white;
-  font-size: 1rem;
+  padding: var(--spacing-small);
+  background-color: var(--color-primary-background);
+  color: var(--color-white);
+  font-size: var(--font-size-medium);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius-medium);
   cursor: pointer;
   width: 100%;
   transition: background-color 0.3s ease;
 }
 
 .createAccountButton:hover {
-  background-color: #45a049;
+  background-color: #45a049; /* Can be replaced with a variable if defined */
 }
 
 /* ✅ RESPONSIVE DESIGN */
 @media (max-width: 768px) {
   .signUpForm {
-    padding: 1.5rem;
+    padding: var(--spacing-large);
   }
 
   .formGroupTitle {
@@ -100,13 +100,13 @@
 
   .formInput,
   .createAccountButton {
-    font-size: 1rem;
+    font-size: var(--font-size-medium);
   }
 }
 
 @media (max-width: 480px) {
   .signUpForm {
-    padding: 1rem;
+    padding: var(--spacing-medium);
   }
 
   .formInput {

@@ -1,52 +1,50 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
-  font-family: "Segoe UI", sans-serif;
+  padding: var(--spacing-xlarge) var(--spacing-medium);
+  font-family: var(--font-family-base);
 }
 
 .heading {
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: #2e7d32;
+  font-size: var(--font-size-xxlarge);
+  margin-bottom: var(--spacing-large);
+  color: var(--color-primary-text);
 }
 
 .controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: var(--spacing-medium);
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-xxlarge);
 }
 
 label {
   font-weight: 500;
-  color: #333;
-  font-size: 1rem;
+  color: var(--color-body-text);
+  font-size: var(--font-size-medium);
 }
 
 .dropdown {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 2px solid #ccc;
-  border-radius: 6px;
-  background-color: #f9f9f9;
+  padding: var(--spacing-extra-small);
+  font-size: var(--font-size-medium);
+  border: 2px solid var(--color-medium-gray-border);
+  border-radius: var(--border-radius-small);
+  background-color: var(--color-light-gray-background);
   min-width: 180px;
   cursor: pointer;
 }
 
 .dropdown:focus {
-  border-color: #2e7d32;
+  border-color: var(--color-primary-text);
   outline: none;
 }
-
-/* Exercise grid layout */
 .exerciseGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: var(--spacing-large);
   justify-content: center;
 }
 
@@ -54,12 +52,12 @@ label {
 .error,
 .noResults {
   text-align: center;
-  font-size: 1rem;
-  color: #555;
-  margin-top: 2rem;
+  font-size: var(--font-size-medium);
+  color: var(--color-dark-gray-text);
+  margin-top: var(--spacing-xxlarge);
 }
 
 .error {
-  color: #d32f2f;
+  color: var(--color-error-text);
   font-weight: 500;
 }

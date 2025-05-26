@@ -1,10 +1,10 @@
 .button {
-  background-color: #4caf50;
-  color: #ffffff;
+  background-color: var(--color-primary-background);
+  color: var(--color-white);
   border: none;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  border-radius: var(--border-radius-medium);
+  padding: var(--spacing-small) var(--spacing-large);
+  font-size: var(--font-size-medium);
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.15s ease;
@@ -13,7 +13,7 @@
 }
 
 .button:hover {
-  background-color: #43a047;
+  background-color: var(--color-primary-background-hover);
 }
 
 .button:active {
@@ -26,18 +26,17 @@
 }
 
 .button:disabled {
-  background-color: #cccccc;
+  background-color: var(--color-medium-gray-border);
   color: #666666;
   cursor: not-allowed;
 }
 
-/* Optional: style when used on a dark background */
 .button.light {
-  background-color: #ffffff;
-  color: #4caf50;
-  border: 2px solid #4caf50;
+  background-color: var(--color-white);
+  color: var(--color-primary-background);
+  border: 2px solid var(--color-primary-background);
 }
 
 .button.light:hover {
-  background-color: #e8f5e9;
+  background-color: var(--color-primary-light-background);
 }

@@ -10,3 +10,60 @@ body {
   height: 100%;
   overflow-x: hidden;
 }
+
+:root {
+  /* Colors */
+  --color-primary-background: #4caf50;
+  --color-primary-background-hover: #388e3c;
+  --color-primary-text: #2e7d32;
+  --color-primary-muted-background: #f0fdf4;
+  --color-primary-light-background: #e8f5e9;
+
+  --color-accent-background: #007bff;
+  --color-accent-background-hover: #0056b3;
+  --color-info-background: #2196f3;
+  --color-info-background-hover: #1976d2;
+
+  --color-error-text: #d32f2f;
+  --color-delete-background: #e53935;
+  --color-delete-background-hover: #d32f2f;
+
+  --color-white: #ffffff;
+  --color-light-gray-background: #f9f9f9;
+  --color-medium-gray-border: #ccc;
+  --color-dark-gray-text: #555;
+  --color-border-gray: #ddd;
+  --color-muted-text: #777;
+  --color-body-text: #333;
+
+  --color-goal-item-background: #e0f0ff;
+
+  /* Font */
+  --font-family-base: "Segoe UI", sans-serif;
+  --font-size-small: 0.875rem;
+  --font-size-medium: 1rem;
+  --font-size-large: 1.25rem;
+  --font-size-xlarge: 1.5rem;
+  --font-size-xxlarge: 2rem;
+  --font-size-heading: 2.2rem;
+
+  /* Spacing */
+  --spacing-extra-small: 0.5rem;
+  --spacing-small: 0.75rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 1.5rem;
+  --spacing-xlarge: 2rem;
+  --spacing-xxlarge: 3rem;
+
+  /* Border Radius */
+  --border-radius-small: 6px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+  --border-radius-xlarge: 16px;
+  --border-radius-xxlarge: 20px;
+
+  /* Shadows */
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-medium: 0 4px 12px rgba(85, 185, 100, 0.4);
+  --shadow-strong: 0 12px 32px rgba(0, 0, 0, 0.08);
+}

@@ -61,7 +61,7 @@ const ExerciseCard = ({ exercise }) => {
     <div className={styles.card}>
       <div className={styles.header}>
         <h3>{exercise.name}</h3>
-        <button className={styles.favoriteBtn} onClick={toggleFavorite}>
+        <button className={styles.favoriteButton} onClick={toggleFavorite}>
           {isFavorite ? "⭐" : "☆"}
         </button>
       </div>

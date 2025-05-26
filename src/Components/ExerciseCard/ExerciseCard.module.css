@@ -1,9 +1,9 @@
 .card {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  padding: 1rem;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-light);
+  padding: var(--spacing-medium);
   width: 280px;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-medium);
 }
 
 .header {
@@ -21,18 +21,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-extra-small);
 }
 
 .header h3 {
-  font-size: 1rem;
-  color: #333;
+  font-size: var(--font-size-medium);
+  color: var(--color-body-text);
   flex: 1;
-  margin-right: 0.5rem;
+  margin-right: var(--spacing-extra-small);
   text-transform: capitalize;
 }
 
-.favoriteBtn {
+.favoriteButton {
   background: none;
   border: none;
   font-size: 1.2rem;
@@ -41,7 +41,7 @@
   transition: transform 0.2s;
 }
 
-.favoriteBtn:hover {
+.favoriteButton:hover {
   transform: scale(1.2);
 }
 
@@ -49,8 +49,8 @@ img {
   width: 100%;
   max-height: 180px;
   object-fit: contain;
-  margin-bottom: 0.5rem;
-  border-radius: 6px;
+  margin-bottom: var(--spacing-extra-small);
+  border-radius: var(--border-radius-small);
 }
 
 p {

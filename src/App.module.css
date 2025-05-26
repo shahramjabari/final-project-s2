@@ -1,4 +1,3 @@
-/* Appens hovedcontainer */
 .rootContainer {
   min-height: 100vh;
   display: flex;
@@ -7,14 +6,12 @@
   font-family: "Inter", sans-serif;
 }
 
-/* Main content – begrens bredde og legg til spacing */
 main {
   flex: 1;
   margin: 0 auto;
   width: 100%;
 }
 
-/* Header (Navbar) kan få fast høyde om ønsket, ellers håndteres via Navbar-styling) */
 header {
   flex-shrink: 0;
 }

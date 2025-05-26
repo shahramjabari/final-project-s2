@@ -1,7 +1,7 @@
 .navbarWrapper {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 1rem 2rem;
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-border-gray);
+  padding: var(--spacing-medium) var(--spacing-xlarge);
 }
 
 .navbar {
@@ -12,18 +12,18 @@
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: var(--font-size-xlarge);
   font-weight: bold;
-  color: #333;
+  color: var(--color-body-text);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-extra-small);
 }
 
 .navList {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: var(--spacing-large);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -32,47 +32,46 @@
 
 .navLink {
   text-decoration: none;
-  color: #333;
+  color: var(--color-body-text);
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .navLink:hover {
-  color: #4caf50;
+  color: var(--color-primary-background);
 }
 
 .active {
-  color: #4caf50;
+  color: var(--color-primary-background);
   font-weight: 600;
-  border-bottom: 2px solid #4caf50;
+  border-bottom: 2px solid var(--color-primary-background);
 }
 
 .logoutButton {
-  margin-left: 1rem;
-  background-color: #f44336 !important;
-  color: white !important;
-  padding: 0.5rem 1rem;
+  margin-left: var(--spacing-medium);
+  background-color: var(--color-delete-background) !important;
+  color: var(--color-white) !important;
+  padding: var(--spacing-extra-small) var(--spacing-medium);
   font-size: 0.9rem;
-  border-radius: 8px;
+  border-radius: var(--border-radius-medium);
   transition: background-color 0.3s ease;
 }
 
 .logoutButton:hover {
-  background-color: #d32f2f !important;
+  background-color: var(--color-delete-background-hover);
 }
 
-/* ✅ Responsiv design */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: var(--spacing-medium);
   }
 
   .navList {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: var(--spacing-small);
   }
 
   .logoutButton {

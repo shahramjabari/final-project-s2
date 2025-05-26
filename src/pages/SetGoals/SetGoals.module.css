@@ -1,6 +1,6 @@
 .goalSection {
-  padding: 2rem;
-  background-color: #f9f9f9;
+  padding: var(--spacing-xlarge);
+  background-color: var(--color-light-gray-background);
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -8,42 +8,42 @@
 }
 
 .container {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 1rem;
+  background-color: var(--color-white);
+  padding: var(--spacing-xlarge);
+  border-radius: var(--border-radius-xlarge);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px;
 }
 
 .heading {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  font-size: var(--font-size-xxlarge);
+  margin-bottom: var(--spacing-large);
   text-align: center;
-  color: #333333;
+  color: var(--color-body-text);
 }
 
 .goalForm {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: var(--spacing-extra-small);
+  margin-bottom: var(--spacing-medium);
   flex-wrap: wrap;
 }
 
 .goalInput {
   flex: 1;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  border: 1px solid #cccccc;
-  font-size: 1rem;
+  padding: var(--spacing-small);
+  border-radius: var(--border-radius-small);
+  border: 1px solid var(--color-medium-gray-border);
+  font-size: var(--font-size-medium);
 }
 
 .addButton {
-  padding: 0.75rem 1.5rem;
-  background-color: #4caf50;
-  color: white;
+  padding: var(--spacing-small) var(--spacing-large);
+  background-color: var(--color-primary-background);
+  color: var(--color-white);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-small);
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.2s ease-in-out;
@@ -56,14 +56,14 @@
 .goalList {
   list-style-type: none;
   padding: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-large);
 }
 
 .goalItem {
   background-color: #f1f1f1;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
+  padding: var(--spacing-small) var(--spacing-medium);
+  border-radius: var(--border-radius-small);
+  margin-bottom: var(--spacing-extra-small);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -84,24 +84,45 @@
 
 .saveButton {
   width: 100%;
-  padding: 0.75rem;
-  background-color: #007bff;
-  color: white;
+  padding: var(--spacing-small);
+  background-color: var(--color-accent-background);
+  color: var(--color-white);
   border: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
+  border-radius: var(--border-radius-small);
+  font-size: var(--font-size-medium);
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
 
 .saveButton:hover {
-  background-color: #0069d9;
+  background-color: var(--color-accent-background-hover);
 }
 
 .feedback {
-  margin-top: 1rem;
-  font-size: 1rem;
+  margin-top: var(--spacing-medium);
+  font-size: var(--font-size-medium);
   text-align: center;
-  color: #4caf50;
+  color: var(--color-primary-background);
+}
+
+@media (max-width: 600px) {
+  .signInForm {
+    padding: var(--spacing-large);
+  }
+
+  .formInput {
+    padding: 0.65rem;
+    font-size: 0.95rem;
+  }
+
+  .signInButton,
+  .resetPasswordButton,
+  .closeButton {
+    font-size: 0.95rem;
+  }
+
+  .resetButtonsContainer {
+    flex-direction: column;
+  }
 }
