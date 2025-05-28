@@ -4,7 +4,7 @@
   align-items: center;
   padding: var(--spacing-xlarge);
   min-height: 100vh;
-  background-color: #f3f4f6; /* Optional: create a variable if reused */
+  background-color: #f3f4f6;
 }
 
 .signInForm {
@@ -80,10 +80,6 @@
   transition: background-color 0.3s ease;
 }
 
-.signInButton:hover {
-  background-color: #43a047; /* Optional: create variable if reused */
-}
-
 .resetFormContainer {
   background-color: var(--color-white);
   padding: var(--spacing-xlarge);
@@ -126,8 +122,6 @@
 .closeButton:hover {
   background-color: var(--color-delete-background-hover);
 }
-
-/* ✅ RESPONSIVE DESIGN */
 @media (max-width: 600px) {
   .signInForm {
     padding: var(--spacing-large);

@@ -10,6 +10,7 @@ import {
 import { auth, database } from "../../FirebaseConfig";
 import styles from "./AddProgress.module.css";
 import Button from "../../Components/Button/Button";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 const AddProgress = () => {
   const [entry, setEntry] = useState({
@@ -127,7 +128,7 @@ const AddProgress = () => {
       <div className={styles.progressList}>
         <h3>📋 Logged Workouts</h3>
         {loading ? (
-          <p>Loading...</p>
+          <LoadingSpinner />
         ) : progressList.length === 0 ? (
           <p>No workouts logged yet.</p>
         ) : (

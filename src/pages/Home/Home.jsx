@@ -7,34 +7,33 @@ const Home = () => {
     <section className={styles.homeSection}>
       <div className={styles.heroContent}>
         <h1 className={styles.heroTitle}>
-          🏋️ Velkommen til <span className={styles.appName}>Fitness Appen</span>
-          !
+          🏋️ Welcome to <span className={styles.appName}>The Fitness App</span>!
         </h1>
         <p className={styles.heroSubtitle}>
-          Følg med på treningen din, sett mål og oppnå dine helseambisjoner.
+          Track your workouts, set goals, and achieve your health ambitions.
         </p>
-        <a href="/sign-up" className={styles.getStartedButton}>
-          Kom i gang nå
+        <a href="/sign-in" className={styles.getStartedButton}>
+          Get Started Now
         </a>
       </div>
 
       <div className={styles.motivationSection}>
-        <h2>💥 Hvorfor trene med oss?</h2>
+        <h2>💥 Why Train With Us?</h2>
         <div className={styles.motivationGrid}>
           <div className={styles.motivationItem}>
-            <img src="src/assets/Images/training.jpg" alt="Trening" />
-            <h3>Hold deg i form</h3>
-            <p>Følg fremgangen din og hold kroppen aktiv og sterk.</p>
+            <img src="src/assets/Images/training.jpg" alt="Training" />
+            <h3>Stay in Shape</h3>
+            <p>Track your progress and keep your body active and strong.</p>
           </div>
           <div className={styles.motivationItem}>
             <img src="src/assets/Images/workout.jpg" alt="Workout" />
-            <h3>Personlige mål</h3>
-            <p>Sett mål og nå dem med hjelp av treningsplaner.</p>
+            <h3>Personal Goals</h3>
+            <p>Set your own fitness goals and reach them with custom plans.</p>
           </div>
           <div className={styles.motivationItem}>
             <img src="src/assets/Images/Gym.jpg" alt="Gym" />
-            <h3>Bli inspirert</h3>
-            <p>Få daglig treningsinspirasjon og tips fra vårt API.</p>
+            <h3>Get Inspired</h3>
+            <p>Receive daily workout inspiration and tips from our API.</p>
           </div>
         </div>
       </div>

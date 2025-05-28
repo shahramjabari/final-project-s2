@@ -3,6 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, database } from "../../FirebaseConfig";
 import styles from "./WorkoutOverview.module.css";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 const WorkoutOverview = () => {
   const [goals, setGoals] = useState([]);
@@ -22,7 +23,7 @@ const WorkoutOverview = () => {
             setGoals(data.dailyGoals || []);
           }
         } catch (error) {
-          console.error("Feil ved henting av mål:", error);
+          console.error("Error fetching goals:", error);
         }
       }
       setLoading(false);
@@ -31,11 +32,11 @@ const WorkoutOverview = () => {
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <p>Laster treningsmål...</p>;
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className={styles.workoutOverviewContainer}>
-      <h1 className={styles.title}>📊 Dine treningsmål</h1>
+      <h1 className={styles.title}>📊 Your Fitness Goals</h1>
       {goals.length ? (
         <ul className={styles.goalList}>
           {goals.map((goal, index) => (
@@ -46,8 +47,8 @@ const WorkoutOverview = () => {
         </ul>
       ) : (
         <p>
-          Ingen mål funnet for {userEmail || "bruker"}. Gå til{" "}
-          <strong>"Sett mål"</strong> for å legge til.
+          No goals found for {userEmail || "user"}. Go to{" "}
+          <strong>"Set Goals"</strong> to add your goals.
         </p>
       )}
     </div>

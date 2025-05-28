@@ -121,7 +121,6 @@ h1 {
   color: var(--color-dark-gray-text);
 }
 
-/* Responsive layout */
 @media (max-width: 768px) {
   .mainContainer {
     padding: var(--spacing-xlarge);

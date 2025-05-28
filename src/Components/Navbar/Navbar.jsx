@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "/src/FirebaseConfig";
 import styles from "./Navbar.module.css";
-import Button from "../Button/Button"; // Bruk din egen Button
+import Button from "../Button/Button";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,7 +21,7 @@ const Navbar = () => {
       await signOut(auth);
       navigate("/sign-in");
     } catch (error) {
-      console.error("Feil ved utlogging:", error.message);
+      console.error("Error signing out:", error.message);
     }
   };
 
@@ -31,7 +31,7 @@ const Navbar = () => {
         <div className={styles.logo}>FitnessApp 🏋️</div>
 
         <ul className={styles.navList}>
-          {/* ✅ Hjem vises kun når ikke innlogget */}
+          {/* ✅ Home shows only when not logged in */}
           {!isLoggedIn && (
             <li>
               <NavLink
@@ -40,7 +40,7 @@ const Navbar = () => {
                   `${styles.navLink} ${isActive ? styles.active : ""}`
                 }
               >
-                Hjem
+                Home
               </NavLink>
             </li>
           )}
@@ -54,7 +54,7 @@ const Navbar = () => {
                     `${styles.navLink} ${isActive ? styles.active : ""}`
                   }
                 >
-                  MainPage
+                  Main Page
                 </NavLink>
               </li>
               <li>
@@ -64,7 +64,7 @@ const Navbar = () => {
                     `${styles.navLink} ${isActive ? styles.active : ""}`
                   }
                 >
-                  Øvelser
+                  Exercises
                 </NavLink>
               </li>
               <li>
@@ -74,7 +74,7 @@ const Navbar = () => {
                     `${styles.navLink} ${isActive ? styles.active : ""}`
                   }
                 >
-                  Sett mål
+                  Set Goals
                 </NavLink>
               </li>
               <li>
@@ -84,7 +84,7 @@ const Navbar = () => {
                     `${styles.navLink} ${isActive ? styles.active : ""}`
                   }
                 >
-                  Oversikt
+                  Overview
                 </NavLink>
               </li>
 
@@ -108,7 +108,7 @@ const Navbar = () => {
                     `${styles.navLink} ${isActive ? styles.active : ""}`
                   }
                 >
-                  Registrer deg
+                  Sign Up
                 </NavLink>
               </li>
               <li>
@@ -118,7 +118,7 @@ const Navbar = () => {
                     `${styles.navLink} ${isActive ? styles.active : ""}`
                   }
                 >
-                  Logg inn
+                  Sign In
                 </NavLink>
               </li>
             </>
@@ -127,7 +127,7 @@ const Navbar = () => {
 
         {isLoggedIn && (
           <Button onClick={handleSignOut} className={styles.logoutButton}>
-            Logg ut
+            Sign Out
           </Button>
         )}
       </nav>

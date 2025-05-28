@@ -3,6 +3,7 @@ import styles from "./AddWorkout.module.css";
 import ExerciseCard from "../../Components/ExerciseCard/ExerciseCard";
 import { auth, database } from "../../FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 const muscleGroups = [
   "abductors",
@@ -70,7 +71,7 @@ const AddWorkout = () => {
     };
 
     fetchFavorites();
-  }, [muscle, showFavoritesOnly]); // Update when muscle or view changes
+  }, [muscle, showFavoritesOnly]);
 
   const filteredExercises = showFavoritesOnly ? favorites : exercises;
 
@@ -103,7 +104,8 @@ const AddWorkout = () => {
         </label>
       </div>
 
-      {loading && <p className={styles.loading}>Loading exercises...</p>}
+      {loading && <LoadingSpinner />}
+
       {error && <p className={styles.error}>{error}</p>}
       {!loading && !error && filteredExercises.length === 0 && (
         <p className={styles.noResults}>No exercises found.</p>

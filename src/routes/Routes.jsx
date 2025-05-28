@@ -20,11 +20,12 @@ import AddProgress from "../pages/AddProgress/AddProgress";
 import VerifyEmail from "../pages/VerifyEmail/VerifyEmail";
 
 import { useAuthContext } from "../context/authContext";
+import LoadingSpinner from "../Components/LoadingSpinner/LoadingSpinner";
 
 const RouteGuard = ({ children }) => {
   const { user, loading } = useAuthContext();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner />;
   if (!user) return <Navigate to="/sign-in" replace />;
 
   return children;

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./MainPage.module.css";
 import Button from "../../Components/Button/Button";
 import { getDocs, collection } from "firebase/firestore";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 const MainPage = () => {
   const [user, setUser] = useState(null);
@@ -66,7 +67,7 @@ const MainPage = () => {
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <p>Loading your dashboard...</p>;
+  if (loading) return <LoadingSpinner />;
   if (!user) return <p>You must be logged in to view this page.</p>;
 
   return (

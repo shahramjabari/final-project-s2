@@ -70,15 +70,15 @@ const SignIn = () => {
   return (
     <div className={styles.formWrapper}>
       <form className={styles.signInForm} noValidate onSubmit={handleSignIn}>
-        <h2>Logg inn</h2>
+        <h2>Sign in</h2>
 
         <fieldset className={styles.formGroup}>
-          <label htmlFor="email">E-post</label>
+          <label htmlFor="email">E-mail:</label>
           <input
             type="email"
             id="email"
             name="email"
-            placeholder="Skriv inn din e-post"
+            placeholder="Write your e-mail"
             className={styles.formInput}
             value={signInFormData.email}
             onChange={handleInputChange}
@@ -87,12 +87,12 @@ const SignIn = () => {
             <p className={styles.errorMessage}>{signInErrors.email}</p>
           )}
 
-          <label htmlFor="password">Passord</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
             id="password"
             name="password"
-            placeholder="Skriv inn ditt passord"
+            placeholder="Write your password"
             className={styles.formInput}
             value={signInFormData.password}
             onChange={handleInputChange}
@@ -105,24 +105,24 @@ const SignIn = () => {
         {resetMessage && <p className={styles.errorMessage}>{resetMessage}</p>}
 
         <p>
-          Har du ikke en konto?{" "}
+          Do you not have an account?{" "}
           <Link to="/sign-up" className={styles.link}>
-            Registrer deg her
+            Register here
           </Link>
         </p>
 
         <p>
-          Glemt passord?{" "}
+          Forgot your password?{" "}
           <Button
             type="button"
             className={styles.forgotPasswordButton}
             onClick={() => setShowForgotPasswordModal(true)}
           >
-            Klikk her
+            Click here
           </Button>
         </p>
 
-        <Button className={styles.signInButton}>Logg inn</Button>
+        <Button className={styles.signInButton}>Sign in</Button>
       </form>
 
       {/* Modal for passordreset */}
@@ -130,17 +130,16 @@ const SignIn = () => {
         <Modal>
           <form className={styles.resetFormContainer}>
             <p>
-              Skriv inn e-postadressen din for å motta en lenke for å nullstille
-              passordet ditt.
+              Enter your email address to receive a link to reset your password.
             </p>
 
-            <label htmlFor="resetEmail">E-post</label>
+            <label htmlFor="resetEmail">E-mail</label>
             <input
               type="email"
               id="resetEmail"
               name="resetEmail"
               className={styles.formInput}
-              placeholder="Din e-postadresse"
+              placeholder="Your email address"
               value={resetEmail}
               onChange={(e) => setResetEmail(e.target.value)}
             />
@@ -151,7 +150,7 @@ const SignIn = () => {
                 className={styles.resetPasswordButton}
                 onClick={handlePasswordReset}
               >
-                Tilbakestill passord
+                Reset password
               </Button>
               <Button
                 type="button"
@@ -162,7 +161,7 @@ const SignIn = () => {
                   setResetEmail("");
                 }}
               >
-                Lukk
+                Close
               </Button>
             </div>
 
