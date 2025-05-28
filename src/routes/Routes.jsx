@@ -17,6 +17,7 @@ import AddWorkout from "../pages/AddWorkout/AddWorkout";
 import SetGoals from "../pages/SetGoals/SetGoals";
 import WorkoutOverview from "../pages/WorkoutOverview/WorkoutOverview";
 import AddProgress from "../pages/AddProgress/AddProgress";
+import VerifyEmail from "../pages/VerifyEmail/VerifyEmail";
 
 import { useAuthContext } from "../context/authContext";
 
@@ -35,8 +36,8 @@ export const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="sign-up" element={<SignUp />} />
       <Route path="sign-in" element={<SignIn />} />
+      <Route path="verify-email" element={<VerifyEmail />} />{" "}
       <Route path="mainpage" element={<MainPage />} />
-
       {/* Protected Routes */}
       <Route
         path="add-workout"

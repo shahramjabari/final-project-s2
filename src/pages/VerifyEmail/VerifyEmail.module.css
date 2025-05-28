@@ -1,0 +1,52 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #f8f9fa;
+}
+
+.card {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.heading {
+  color: #2e7d32;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+.instruction {
+  color: #444;
+  margin-bottom: 0.8rem;
+}
+
+.subtext {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.success {
+  color: #2e7d32;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.error {
+  color: #d32f2f;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.redirectMessage {
+  font-size: 1.4rem;
+  color: #2e7d32;
+}
