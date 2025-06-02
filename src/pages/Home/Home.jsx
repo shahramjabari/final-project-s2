@@ -22,17 +22,17 @@ const Home = () => {
         <h2>💥 Why Train With Us?</h2>
         <div className={styles.motivationGrid}>
           <div className={styles.motivationItem}>
-            <img src="src/assets/Images/training.jpg" alt="Training" />
+            <img src="./assets/Images/training.jpg" alt="Training" />
             <h3>Stay in Shape</h3>
             <p>Track your progress and keep your body active and strong.</p>
           </div>
           <div className={styles.motivationItem}>
-            <img src="src/assets/Images/workout.jpg" alt="Workout" />
+            <img src="./assets/Images/workout.jpg" alt="Workout" />
             <h3>Personal Goals</h3>
             <p>Set your own fitness goals and reach them with custom plans.</p>
           </div>
           <div className={styles.motivationItem}>
-            <img src="src/assets/Images/Gym.jpg" alt="Gym" />
+            <img src="./assets/Images/Gym.jpg" alt="Gym" />
             <h3>Get Inspired</h3>
             <p>Receive daily workout inspiration and tips from our API.</p>
           </div>
