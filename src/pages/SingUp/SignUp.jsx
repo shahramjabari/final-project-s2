@@ -1,12 +1,11 @@
 import { useState, useRef } from "react";
 import styles from "./SignUp.module.css";
-import { useSignUpValidation } from "../../hooks/useSignUpValidation";
 import { useNavigate } from "react-router-dom";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { database } from "../../FirebaseConfig";
 import { useAuth } from "../../Hooks/useAuth";
 import Button from "../../Components/Button/Button";
-
+import useSignInValidation from "../../Hooks/useSignInValidation";
 const SignUp = () => {
   const [formData, setFormData] = useState({
     firstname: "",
@@ -20,7 +19,7 @@ const SignUp = () => {
   });
 
   const fileInputRef = useRef(null);
-  const { validate, errors } = useSignUpValidation();
+  const { validate, errors } = useSignInValidation();
   const { signUp, signUpErrors } = useAuth();
   const [submitError, setSubmitError] = useState("");
   const navigate = useNavigate();
