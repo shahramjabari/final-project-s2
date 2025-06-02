@@ -22,6 +22,7 @@ const SignUp = () => {
   const fileInputRef = useRef(null);
   const { validate, errors } = useSignUpValidation();
   const { signUp, signUpErrors } = useAuth();
+  const [submitError, setSubmitError] = useState("");
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -59,6 +60,8 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError("");
+
     if (!validate(formData)) return;
 
     try {
@@ -71,11 +74,10 @@ const SignUp = () => {
         lastname: formData.lastname,
         email: formData.email,
         dateOfBirth: formData.dateOfBirth || "",
-        profilePicture: "", // TODO: Legg til faktisk URL hvis du laster opp bildet senere
+        profilePicture: "", // TODO: Add real URL if you implement image upload later
         createdAt: serverTimestamp(),
       });
 
-      // Reset form
       setFormData({
         firstname: "",
         lastname: "",
@@ -87,10 +89,9 @@ const SignUp = () => {
         previewUrl: "",
       });
       fileInputRef.current.value = "";
-
       navigate("/verify-email");
-    } catch (error) {
-      console.error("Signup failed:", error);
+    } catch {
+      setSubmitError("Something went wrong during sign-up. Please try again.");
     }
   };
 
@@ -217,6 +218,7 @@ const SignUp = () => {
         </fieldset>
 
         {signUpErrors && <p className={styles.errorMessage}>{signUpErrors}</p>}
+        {submitError && <p className={styles.errorMessage}>{submitError}</p>}
 
         <Button className={styles.createAccountButton}>Create Account</Button>
       </form>

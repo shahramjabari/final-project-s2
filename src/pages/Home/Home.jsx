@@ -1,6 +1,7 @@
 // src/pages/Home.jsx
 import React from "react";
 import styles from "./Home.module.css";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -12,9 +13,9 @@ const Home = () => {
         <p className={styles.heroSubtitle}>
           Track your workouts, set goals, and achieve your health ambitions.
         </p>
-        <a href="/sign-in" className={styles.getStartedButton}>
+        <Link to="/sign-in" className={styles.getStartedButton}>
           Get Started Now
-        </a>
+        </Link>
       </div>
 
       <div className={styles.motivationSection}>

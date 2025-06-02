@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [signOutError, setSignOutError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,10 +19,11 @@ const Navbar = () => {
 
   const handleSignOut = async () => {
     try {
+      setSignOutError("");
       await signOut(auth);
       navigate("/sign-in");
-    } catch (error) {
-      console.error("Error signing out:", error.message);
+    } catch {
+      setSignOutError("Failed to sign out. Please try again.");
     }
   };
 
@@ -31,7 +33,6 @@ const Navbar = () => {
         <div className={styles.logo}>FitnessApp 🏋️</div>
 
         <ul className={styles.navList}>
-          {/* ✅ Home shows only when not logged in */}
           {!isLoggedIn && (
             <li>
               <NavLink
@@ -131,6 +132,7 @@ const Navbar = () => {
           </Button>
         )}
       </nav>
+      {signOutError && <p className={styles.errorMessage}>{signOutError}</p>}
     </header>
   );
 };

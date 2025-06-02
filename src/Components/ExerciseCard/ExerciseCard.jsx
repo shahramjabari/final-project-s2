@@ -11,6 +11,7 @@ import styles from "./ExerciseCard.module.css";
 
 const ExerciseCard = ({ exercise }) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const checkFavorite = async () => {
@@ -42,6 +43,7 @@ const ExerciseCard = ({ exercise }) => {
     };
 
     try {
+      setError("");
       if (isFavorite) {
         await updateDoc(userRef, {
           favorites: arrayRemove(favObj),
@@ -52,8 +54,8 @@ const ExerciseCard = ({ exercise }) => {
         });
       }
       setIsFavorite(!isFavorite);
-    } catch (error) {
-      console.error("Error updating favorites:", error);
+    } catch {
+      setError("Failed to update favorites. Please try again.");
     }
   };
 
@@ -78,6 +80,7 @@ const ExerciseCard = ({ exercise }) => {
       <p>
         <strong>Equipment:</strong> {exercise.equipment}
       </p>
+      {error && <p className={styles.errorMessage}>{error}</p>}
     </div>
   );
 };

@@ -9,6 +9,7 @@ const SetGoals = () => {
   const [goals, setGoals] = useState([]);
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -22,12 +23,11 @@ const SetGoals = () => {
             const data = userDocSnap.data();
             setGoals(data.dailyGoals || []);
           } else {
-            // Opprett dokument hvis det ikke finnes
             await setDoc(userDocRef, { dailyGoals: [] });
             setGoals([]);
           }
-        } catch (error) {
-          console.error("Feil ved henting av mål:", error);
+        } catch {
+          setError("Failed to load your goals. Please try again later.");
         }
       } else {
         setUser(null);
@@ -45,6 +45,7 @@ const SetGoals = () => {
     setGoals((prevGoals) => [...prevGoals, goalInput.trim()]);
     setGoalInput("");
     setMessage("");
+    setError("");
   };
 
   const handleDeleteGoal = (indexToDelete) => {
@@ -52,11 +53,13 @@ const SetGoals = () => {
       prevGoals.filter((_, index) => index !== indexToDelete)
     );
     setMessage("");
+    setError("");
   };
 
   const handleSave = async () => {
     if (!user) {
-      setMessage("Du må være logget inn for å lagre målene dine.");
+      setMessage("");
+      setError("You must be logged in to save your goals.");
       return;
     }
 
@@ -65,10 +68,11 @@ const SetGoals = () => {
       await updateDoc(userDocRef, {
         dailyGoals: goals,
       });
-      setMessage("Målene dine er lagret! ✅");
-    } catch (error) {
-      console.error("Feil ved lagring:", error);
-      setMessage("Kunne ikke lagre målene dine.");
+      setMessage("Your goals have been saved! ✅");
+      setError("");
+    } catch {
+      setMessage("");
+      setError("Could not save your goals. Please try again.");
     }
   };
 
@@ -109,6 +113,7 @@ const SetGoals = () => {
         </button>
 
         {message && <p className={styles.feedback}>{message}</p>}
+        {error && <p className={styles.error}>{error}</p>}
       </div>
     </section>
   );

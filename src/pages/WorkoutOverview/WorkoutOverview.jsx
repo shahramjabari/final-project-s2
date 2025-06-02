@@ -9,6 +9,7 @@ const WorkoutOverview = () => {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userEmail, setUserEmail] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -22,8 +23,8 @@ const WorkoutOverview = () => {
             const data = userDocSnap.data();
             setGoals(data.dailyGoals || []);
           }
-        } catch (error) {
-          console.error("Error fetching goals:", error);
+        } catch {
+          setError("Failed to fetch your goals. Please try again later.");
         }
       }
       setLoading(false);
@@ -37,6 +38,9 @@ const WorkoutOverview = () => {
   return (
     <div className={styles.workoutOverviewContainer}>
       <h1 className={styles.title}>📊 Your Fitness Goals</h1>
+
+      {error && <p className={styles.errorMessage}>{error}</p>}
+
       {goals.length ? (
         <ul className={styles.goalList}>
           {goals.map((goal, index) => (
@@ -46,10 +50,12 @@ const WorkoutOverview = () => {
           ))}
         </ul>
       ) : (
-        <p>
-          No goals found for {userEmail || "user"}. Go to{" "}
-          <strong>"Set Goals"</strong> to add your goals.
-        </p>
+        !error && (
+          <p>
+            No goals found for {userEmail || "user"}. Go to{" "}
+            <strong>"Set Goals"</strong> to add your goals.
+          </p>
+        )
       )}
     </div>
   );

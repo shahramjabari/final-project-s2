@@ -22,7 +22,7 @@
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: var(--spacing-medium);
-  color: #f5f5f5;
+  color: var(--color-body-text);
 }
 
 .appName {

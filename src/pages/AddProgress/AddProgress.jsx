@@ -22,6 +22,7 @@ const AddProgress = () => {
 
   const [progressList, setProgressList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,8 +31,20 @@ const AddProgress = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
     const user = auth.currentUser;
     if (!user) return;
+
+    if (
+      !entry.exercise.trim() ||
+      !entry.sets ||
+      !entry.reps ||
+      parseInt(entry.sets) <= 0 ||
+      parseInt(entry.reps) <= 0
+    ) {
+      setErrorMessage("Please enter valid exercise details.");
+      return;
+    }
 
     try {
       await addDoc(collection(database, "users", user.uid, "progress"), {
@@ -41,8 +54,8 @@ const AddProgress = () => {
 
       setEntry({ exercise: "", sets: "", reps: "", note: "" });
       fetchProgress();
-    } catch (error) {
-      console.error("Error saving progress:", error);
+    } catch {
+      setErrorMessage("Failed to save progress. Please try again.");
     }
   };
 
@@ -61,8 +74,8 @@ const AddProgress = () => {
       }));
 
       setProgressList(list);
-    } catch (error) {
-      console.error("Error fetching progress:", error);
+    } catch {
+      setErrorMessage("Error loading progress list.");
     } finally {
       setLoading(false);
     }
@@ -75,8 +88,8 @@ const AddProgress = () => {
     try {
       await deleteDoc(doc(database, "users", user.uid, "progress", id));
       setProgressList((prev) => prev.filter((item) => item.id !== id));
-    } catch (error) {
-      console.error("Error deleting progress:", error);
+    } catch {
+      setErrorMessage("Failed to delete progress. Try again.");
     }
   };
 
@@ -122,6 +135,7 @@ const AddProgress = () => {
           onChange={handleChange}
           rows="4"
         />
+        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
         <Button type="submit">Save Progress</Button>
       </form>
 

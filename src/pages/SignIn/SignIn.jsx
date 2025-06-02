@@ -17,6 +17,7 @@ const SignIn = () => {
   });
   const [resetEmail, setResetEmail] = useState("");
   const [resetMessage, setResetMessage] = useState("");
+  const [error, setError] = useState("");
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const { validateSignIn, signInErrors } = useSignInValidation();
   const navigate = useNavigate();
@@ -24,24 +25,24 @@ const SignIn = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSignInFormData((prev) => ({ ...prev, [name]: value }));
+    setError("");
   };
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+    setError("");
     if (!validateSignIn(signInFormData)) return;
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth,
         signInFormData.email,
         signInFormData.password
       );
-      console.log("User signed in:", userCredential.user);
       setSignInFormData({ email: "", password: "" });
       navigate("/mainpage");
-    } catch (error) {
-      console.error("Sign in error:", error.message);
-      setResetMessage("Feil ved innlogging. Sjekk e-post og passord.");
+    } catch {
+      setError("Login failed. Please check your email and password.");
     }
   };
 
@@ -50,20 +51,19 @@ const SignIn = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!resetEmail.trim()) {
-      setResetMessage("E-postadresse er påkrevd for å tilbakestille passordet");
+      setResetMessage("Email address is required to reset password.");
       return;
     } else if (!emailRegex.test(resetEmail.trim())) {
-      setResetMessage("Skriv inn en gyldig e-postadresse");
+      setResetMessage("Please enter a valid email address.");
       return;
     }
 
     try {
       await sendPasswordResetEmail(auth, resetEmail);
-      setResetMessage("E-post for tilbakestilling sendt. Sjekk innboksen din.");
+      setResetMessage("Password reset email sent. Please check your inbox.");
       setResetEmail("");
-    } catch (error) {
-      console.error("Feil ved tilbakestilling:", error.message);
-      setResetMessage("Noe gikk galt. Prøv igjen senere.");
+    } catch {
+      setResetMessage("Something went wrong. Please try again later.");
     }
   };
 
@@ -102,10 +102,10 @@ const SignIn = () => {
           )}
         </fieldset>
 
-        {resetMessage && <p className={styles.errorMessage}>{resetMessage}</p>}
+        {error && <p className={styles.errorMessage}>{error}</p>}
 
         <p>
-          Do you not have an account?{" "}
+          Don't have an account?{" "}
           <Link to="/sign-up" className={styles.link}>
             Register here
           </Link>
@@ -125,7 +125,7 @@ const SignIn = () => {
         <Button className={styles.signInButton}>Sign in</Button>
       </form>
 
-      {/* Modal for passordreset */}
+      {/* Modal for password reset */}
       {showForgotPasswordModal && (
         <Modal>
           <form className={styles.resetFormContainer}>
