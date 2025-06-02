@@ -44,3 +44,5 @@ export const useSignUpValidation = () => {
 
   return { validate, errors };
 };
+
+export default useSignUpValidation;
